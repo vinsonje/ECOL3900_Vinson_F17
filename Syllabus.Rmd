@@ -1,0 +1,6 @@
+---
+title: "Syllabus"
+author: "John Vinson"
+date: "7/11/2017"
+output: pdf_document
+---
