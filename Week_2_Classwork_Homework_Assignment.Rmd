@@ -1,0 +1,49 @@
+---
+title: "Week 2 Classwork/Homework Assignment"
+author: "John Vinson"
+date: "7/13/2017"
+output: pdf_document
+---
+
+*For the assignment, you will submit a R Markdown (.rmd) file and the compiled document as both a pdf and html. Make sure that the compiled documents will display all the required code to get your results.*
+
+\vspace{24pt}
+
+1. Write and execute a chunk of code that performs each of these operations.  For each line of code, annotate it to describe what it will do when run.
+
+- Print the line "Here are my answers for Question 1." 
+- Compute the product of six and five.
+- Compute eight to the fifth power.
+- Compute the product of two variables
+
+\vspace{12pt}
+
+2. Use the following set to complete the following operations.
+\begin{equation}
+\{13.0,1.0,5.0,8.0,1.0,0.0,34.0,2.0,21.0,0.0,3.0\}
+\end{equation}
+
+- Using the set, create a vector named *Ornacia*.
+- Determine the length of the vector.
+- Find the highest values and the positions of the value(s).
+- Find the lowest value(s). Display the lowest values(s).
+- Find the position of value 21.
+- Order the vector from the lowest to highest numbers. 
+- Create a new vector, *Ornacia.Even*, which are only the values of the even positions in the vector.
+- Append the following numbers to the end of the vector *Ornacia* $\{55.0, 89.0\}$
+- Create a new vector, *Ornacia.Half*, which contains all half of all the values of *Ornacia*.
+
+\vspace{12pt}
+
+3. Import the dataset "eBird_BotGarden_2016.csv". These are estimated abundances of birds seen at the State Botanical Gardens of Georgia (Athens, GA) each week of 2016.  Perform the following operations:
+
+- Plot the weekly abundance of the Northern Flicker as a bar graph. 
+- Plot the weekly abundance of the Barred Owl, Canada Goose and Red Shouldered Hawk on a single line graph. 
+
+\vspace{12pt}
+
+4. Using the eBird data (from question 3), write a function that will calculate the average abundance of a specified species for the year.  Your function should have two arguments/inputs: the dataset and the name of the species. The output should be a single number (the average). Find the average abundance for the Canada Goose. (Hint: The *names* function will return the column names of a data frame.)
+
+\vspace{12pt}
+
+5. Using your averaging function, write script to create a new dataframe containing the names and average abundance of every species that has an average abudnace greater than 5 individuals. Your resulting data frame should have two columns: the name of the species and their average abundance. 
