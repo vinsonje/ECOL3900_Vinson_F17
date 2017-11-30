@@ -1,0 +1,41 @@
+---
+title: "Week 7 Class Problems"
+author: "John Vinson"
+date: "9/26/2017"
+output: pdf_document
+---
+
+1. Find a function $f$ and a number $a$ such that
+
+\begin{equation}
+lim_{h \to 0} \frac{(2+h)^6 - 64}{h} = f^{'}(a)
+\end{equation}
+
+\vspace{12 pt}
+
+
+2. Suppose that the number of calories of heat required to raise 1 gram of water (or ice) from -40$^{\circ}C$ to x$^{\circ}C$ is given by
+
+\begin{equation}
+f(x) = \begin{cases}
+ \frac{1}{2}x+20 & \text{if $-40 \leq x < 0$} \\
+ x + 100 & \text{if $0 \leq x$} \\
+\end{cases}
+\end{equation}
+
+Is the function continuous $\forall x \in [-40,\infty)$? What happens to water at 0$^{\circ}C$ that account for the behavior of the function at 0 $^{\circ}C$?
+
+\vspace{12pt}
+
+3. Find the asymptotes of the graph of $f(x) = \frac{4-x}{3+x}$ and use them to sketch the graph and the graph of $f^{'}$. Find $f^{'}$ and graph it in R.
+
+\vspace{12pt}
+
+4. A bacteria culture contains 200 cells initially and grows at a rate proportional to its size. After half an hour the population has increased to 360 cells. 
+
+- Find the number of bacteria after t hours.
+- Find the number of bacteria after 4 hours.
+- Find the rate of growth after 4 hours
+- When will the population reach 10,000?
+
+\vspace{12pt}

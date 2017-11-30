@@ -1,0 +1,102 @@
+---
+title: "Week 6: Stage-Structured Population Growth"
+author: "John Vinson"
+date: "9/5/2017"
+output: pdf_document
+header-includes:
+   - \usepackage{wrapfig}
+   - \usepackage{graphicx}
+---
+
+\begin{center}\textbf{The assignment is due Tuesday, September 27  by 8 PM. You only need to turn in a printed pdf of the completed assignment.  Make sure that you've knitted your document showing any relevant code.}
+
+\textit{This exercise contains X questions. Please make sure you address all of them when completing the case study.}\end{center}
+
+#Introduction
+
+Recall from our previous case study that we can model the growth of populations through density-independent, discrete-time model:
+
+\begin{equation}
+N_{t+1} = \lambda N_t
+\end{equation}
+
+In our model, $N_{t+1}$ represents the number of individuals in the population at the next time point,  $N_t$ is the number of individuals in the population at the next time point and $\lambda$ is the reproductive multiplier.  Here, $\lambda$ can be broken down into the per capita birth rate ($b_0$) and the per capita death rate ($d_0$) such that $\lambda = b_0 - d_0 + 1$. Remember that $t$ can only take discrete integers. For this model, $t \in \{1, 2, 3, 4,..., N\}$. Remember, that for values of $\lambda > 1$ the population will grow to infinity $\forall N_0 \in \mathbb{R}^+$. 
+
+However, this model may not be useful to describe all populations.
+
+###Questions
+**1. What are the assumptions of this model? What are we assuming about the individuals in the population?** 
+
+##Stage-structured populations
+
+We could break down 
+
+
+##Sea-turtle populations
+
+For this exercise, we will focus on 
+
+
+
+##Exercise
+
+Let's begin by investigating the current population of sea-turtles investigated in Crowder et al. 1994.  We will separate the population into five distinct stages: hatchlings, small and large juvinales and small and large adults. 
+
+\begin{figure}
+\centerline{\includegraphics[width=0.75\textwidth]{/opt/home/vinsonje/ECOL3900_Vinson_F17/images/sea_turtle_diagram.jpg}}
+\caption{Diagram describing the structure and transitions of the sea turtle population from Crowder et al. 1994.}
+\end{figure}
+
+###Questions
+**2. Given the above diagram for the sea turtle population, write the Leslie matrix. What are the assumptions of this model?**
+
+**3. Write a function that will calculate the the population size of each stage of a stage-structured population given the Leslie matrix, initial population size, and the number of time steps. The function should return a dataframe with 6 columns: time and the population size of each stage. **
+
+**4. Using this function and the Leslie matrix from Q2, plot the trajectory of the population for the first 100 time steps with an initial population size of 2000 hatchling, 500 small juvenile, 300 large juvenile, 300 small adult and 1 large adult.**
+
+**5. Calculate $\lambda$ for the population for each time step. What does does $\lambda$ converge to? At what time does this happen? What does this value of $\lambda$ mean for the sea turtle population?**
+
+**6. Find the stable age distribution of the population.**
+
+**7. Using the *eigen* function, determine the dominant eigenvalue and the corresponding (right) eigenvector of the Leslie matrix. Divide each element of the eigenvector by the sum of the vector. What are these values biologically?**
+
+**8. Change the initial stage sizes to 75 hatchling and 1 indidivual for all other classes. Describe what we are testing by doing this. What does it have on the population trajectory of the sea turtles? In the short run (first ~10 time steps)? In the long run?**
+
+**9. Let's investigate the effect of TEDS, modify your leslie matrix to**
+
+\begin{equation}
+\begin{bmatrix}
+0 & 0 & 0 & 5.448 & 69.39 \\
+0.675 & 0.703 & 0 & 0 & 0 \\
+0 & 0.047 & 0.767 & 0 & 0 \\
+0 & 0 & 0.022 & 0.765 & 0 \\
+0 & 0 & 0 & 0.068 & 0.876 \\
+\end{bmatrix}
+\end{equation}
+
+**What have we changed in the Leslie matrix? Discuss what this means biologically.**
+**If the initial population size of the sea turtles is 30,000 hatchling, 50,000 small juveniles, 18,000 large juveniles, 2,000 small adults and 2 adult.  How does this influence the population dynamics? Plot the population trajectory and discuss how $lambda$ and the stable age distribution has changed.**
+
+**10. Another conservation effort targets the survival of eggs into hatchlings.  A large source of mortality occurs between the eggs are laid in a nest and when they reach a safe area in the sea. To increase survival, efforts have protected nests on beaches and even removed eggs to protected hatcheries. Let's assume that **
+
+
+```{r, echo=TRUE}
+S = 1 #fertility multiplying factor 
+
+L.mat = matrix(c(0, 0, 0, S*4.665, S*61.896,
+                 0.675, 0.703, 0, 0, 0,
+                 0, 0.047, 0.657, 0, 0,
+                 0, 0, 0.019, 0.682, 0,
+                 0 ,0, 0, 0.061, 0.8091), nrow=5, byrow=TRUE)
+
+```
+**11. **
+
+
+
+
+
+
+
+
+

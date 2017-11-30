@@ -1,0 +1,63 @@
+---
+title: "Week 3 Classwork/Homework Assignment"
+author: "John Vinson"
+date: "8/7/2017"
+output: pdf_document
+---
+
+*For the assignment, you will submit a R Markdown (.rmd) file and the compiled document as both a pdf and html. Make sure that the compiled documents will display all the required code to get your results.*
+
+\begin{center}
+{\bf The assignment is due Friday September 1 at 8:00 PM.}
+\end{center}
+
+\vspace{24pt}
+
+1. Choose one of the following questions and discuss succently: 
+- What is a function? Compare and contrast mathematical functions with functions used in programming. 
+- Explain how functions can be represented.  Use examples to aid in your explanations.
+- What is mathematical model?  How is this related to the topics that were covered this week? 
+
+\vspace{12pt}
+
+2. A can in the shape of a cylinder is to be made to hold a volume of one liter (1000 cubic centimeters). The manufacturer needs the functions for both the volume and the surface area.  Define these as functions of the radius (r) and height (h) of the can. Determine the possible values that h can take if the radius of the can must be between 0.5 and 10 cm. Which values of r and h (to three decimal places) minimize the surface area allowing the manufacturer to use the least amount of materials?
+
+\vspace{12pt}
+
+3. The following table includes the life expectancy (at birth) of males from 1900 to 2000. 
+
+\begin{center}
+```{r, echo=FALSE, results="asis", fig.align='center'}
+library("knitr")
+
+years = seq(1900, 1950, 10)
+le = c(48.3,51.1,55.2,57.4,62.5, 65.6)
+years.2 = c(seq(1960, 2000, 10), "")
+le.2 = c(66.6,67.1,70.1,71.8,73.0, "")
+
+le.df = data.frame(years, le, years.2, le.2)
+
+kable(le.df, col.names = c("year", "life expectancy", "year", "life expectancy"), format="latex", align="c")
+```
+\end{center}
+
+Plot the data as a scatter plot and determine the appropiate model (function) to fit the data. Using this model, predict the life span of males born in 2010. 
+
+\vspace{12pt}
+
+4. Scientists have modeled the average surface temperature (T; in $^{\circ}C$) as a linear function:
+\begin{align}
+T = 0.02t + 8.50
+\end{align}
+where, t represents the number of years since 1900.  What does the slope and T-intercept represent? What is the predicted temperature in 2100? In what year will average surface temperture exceed 10$^{\circ}C$? Is a linear model an appropiate model for investigating the surface temperature? Explain and discuss possible alternatives. 
+
+\vspace{12pt}
+
+5. The number of individuals in a bacteria population at time t ($N(t)$) with an initial population size of 100 individuals is described by the following function:
+\begin{align}
+N(t) = 100*2^{t/3}.
+\end{align}
+What is the doubling time (i.e. the time it takes to double the number of individuals) of the population?  Find the inverse of the function and describe what this new function represents. Determine how long it will take for the population to reach 50000.
+
+
+

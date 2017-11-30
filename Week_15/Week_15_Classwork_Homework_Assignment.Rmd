@@ -1,0 +1,26 @@
+---
+title: "Week 15 Classwork/Homework Assignment"
+author: "John Vinson"
+date: "11/27/2017"
+output: pdf_document
+---
+
+*For the assignment, you will submit the compiled pdf document. Make sure that the compiled documents will display all the required code to get your results.*
+
+\begin{center}
+{\bf The assignment is due Tuesday December 5 at 3:30 PM.}
+\end{center}
+
+\vspace{24pt}
+
+For this assignment, you are to reflect on your learning throughout the course.  In two-pages, discuss the following questions/prompts:
+
+- Has the course changed the way you think about mathematics? 
+- What are your thoughts about how we use mathematics in ecology?
+- Have your problem-solving skills changed having completed the course?
+- Do you feel that the course prepared you for future classes and/or jobs?
+- What was the most difficult topic we covered in the course? How did you approach these topics? 
+- What is the most valuable topic/thing that you learned through the course?
+- Have you learned anything about how you learn by taking the course?
+- How did having both videos and readings influence your comprehension of the weekly topics?
+- Did classtime dedicated to working problems and addressing questions influence the way you learn?

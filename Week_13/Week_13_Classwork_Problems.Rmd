@@ -1,0 +1,77 @@
+---
+title: "Week 13 Classwork Problems"
+author: "John Vinson"
+date: "11/7/2017"
+output: pdf_document
+---
+
+*For the assignment, you only need to turn in a completed pdf. You may need to attach a hand written document showing your work for these problems.  Make sure that the compiled documents will display all the required code to get your results.*
+
+\vspace{12pt}
+
+1. Noah and Katie are arguing over who gets the last piece of cookie, so Marina decides to create a game to settle their dispute. First, Noah flips a coin twice, and each time Katie calls heads or tails in the air. If Katie gets both calls right, she gets the last cookie. If not, Noah picks a number between one and six and then rolls a die. If he gets the number right, he gets the last cookie. If not, Katie picks two numbers between one and five, then spins a spinner with numbers one through five on it. If the spinner lands on one of Katie' two numbers, she gets the last cookie. If not, Noah does.
+
+Who is more likely to win the last cookie, Noah or Katie? And what is the probability that person wins it?
+
+2. An amoeba population begins with one individual. Each time step an individual can either die (the population size decreases by 1), do nothing (population size stays the same), divide into two separate individuals (population size increases by one). Each event has the same probability of occuring for each individual.  What is the probability that the population goes extinct at some time in the future?
+
+```{r, echo=FALSE, eval=FALSE}
+amb = function(nsim){
+  
+pop.out = NULL
+time.out = NULL
+
+for(i in 1:nsim){
+pop = 1
+time = 0
+pop.max = -999
+
+while(pop!=0){
+  pop.new = 0
+  for(j in 1:pop){
+    temp.val = sample(c(0, 1, 2, 2), size=1)
+    pop.new = pop.new + temp.val
+  }
+  
+  if(pop.new>pop.max){pop.max = pop.new}
+  pop = pop.new
+  time=time+1
+}
+
+pop.out = append(pop.out, pop.max)
+time.out = append(time.out, time)
+
+}
+  
+  return(cbind(pop.out, time.out))
+}
+
+temp = amb(5)
+
+mean(temp[,2])
+```
+
+3. How many people do you need to enter a room before the probability of any 2 or more people sharing a birthday (day and month only, not year) is greater than 50%? Let's assume that birthdays in the population are equally spread over a 365 day year. 
+
+```{r, echo=FALSE, eval=FALSE}
+birth = function(N){
+
+  P = 1
+  
+  for(i in 1:N){
+    P = P*(366-i)/365
+  }
+  
+  return(1-P)
+}
+
+N.vec = 1:365
+
+b.vec = NULL
+
+for(i in 1:365) b.vec[i] = birth(i)
+
+plot(N.vec, b.vec)
+```
+
+

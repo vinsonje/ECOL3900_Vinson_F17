@@ -1,0 +1,126 @@
+---
+title: "Week 5 Classwork/Homework Assignment"
+author: "John Vinson"
+date: "9/7/2017"
+output: pdf_document
+---
+
+*For the assignment, you only need to turn in a completed pdf. You may need to attach a hand written document showing your work for these problems.  Make sure that the compiled documents will display all the required code to get your results.*
+
+*It may be useful to refresh yourself on how to code matrices and how to write matrices in latex.*
+
+\begin{center}
+{\bf The assignment is due Thursday September 21 at 3:30 PM.}
+\end{center}
+
+\vspace{24pt}
+
+1. Discuss the following prompt: 
+
+How do we use matrices in biology/ecology? What can we use them to represent? 
+
+\vspace{12pt}
+
+2. The tables below give the number of some species of threatened and endangered wildlife in the United States and in foreign countries in 2001.
+
+\begin{center}
+\bf{United States}
+```{r, echo=FALSE, results="asis", fig.align='center'}
+library("knitr")
+
+endangered = c(63,78,14,10,70)
+threatened = c(9,14,22,8,44)
+
+us.df = as.data.frame(rbind(endangered, threatened))
+
+kable(us.df, col.names = c("mammals", "birds", "reptiles", "amphibians", "fishes"), format="latex", align="c")
+```
+\end{center}
+
+\begin{center}
+\bf{Foreign}
+```{r, echo=FALSE, results="asis", fig.align='center'}
+library("knitr")
+
+endangered = c(251,175,64,8,11)
+threatened = c(17,6,15,1,0)
+
+us.df = as.data.frame(rbind(endangered, threatened))
+
+kable(us.df, col.names = c("mammals", "birds", "reptiles", "amphibians", "fishes"), format="latex", align="c")
+```
+\end{center}
+
+- Write a matrix D that contain the number of each species in the United States in 2001 and a matrix F that contain the number of each of those species outside of the United States in 2001.
+- Find a matrix with the total number of these species, if US and foreign species are different. 
+- Find the matrix D-F and tell what the elements of this matrix mean. What do the negative entries in matrix D-F mean?
+
+\vspace{12pt}
+
+3. Solve the system of equations:
+
+\begin{align}
+0 =& 2x_1 + 3x_2 + x_4 + 3 x_5\\
+27 =& x_1 + 2 x_3 + 3 x_4 + x_5\\
+-15 =& x_2 + 2 x_4 + 3 x_5\\
+24 =& x_1 + 2 x_3 + 2 x_4 + x_5\\
+-24 =& x_1 +3 x_5
+\end{align}
+
+\vspace{12pt}
+\newpage
+
+4. The population of a colony of bacteria grows so that the population size at any hour t is the sum of the populations of the 3 previous hours. Suppose that the following matrix N describes the population size for 3 succesive hours. 
+
+\begin{equation}
+N = \begin{bmatrix}
+n_t\\
+n_{t+1}\\
+n_{t+2}
+\end{bmatrix}
+\end{equation}
+
+
+
+- Write the matrix M so that MN gives the poplatuion size for the 3 successive hours beginning 1 hour later - this is, so that
+
+\begin{equation}
+MN = \begin{bmatrix}
+n_{t+1}\\
+n_{t+2}\\
+n_t + n_{t+1} + n_{t+2}
+\end{bmatrix}
+\end{equation}
+\vspace{12pt}
+
+- If the population at the end of the 3 successive 1-hour periods was 200 at the end of the first hour, 370 at the end of the second hour, and 600 at the end of the third hour, what was the population size 1 hour before it was 200? (Hint: you should find $M^{-1}$.)
+
+5. Find the eigenvalues and the corresponding eigenvectors of these two matrices:
+
+\begin{equation}
+A = \begin{bmatrix}
+1 & 4\\
+2 & 3\\
+\end{bmatrix}
+\end{equation}
+
+and 
+
+\begin{equation}
+A + I
+\end{equation}
+
+Complete the following sentence:
+
+$A + I$ has the __________ eigenvectors as $A$. Its eigenvalues are __________ by 1. 
+<!-- \begin{equation} -->
+<!-- \begin{bmatrix} -->
+<!-- 0 & 0 & 0 & 4.665 & 61.8960\\ -->
+<!-- 0.675 & 0.703 & 0 & 0 & 0\\ -->
+<!-- 0 & 0.047 & 0.657 & 0 & 0\\ -->
+<!-- 0 & 0 & 0.019 & 0.682 & 0\\ -->
+<!-- 0 & 0 & 0 & 0.061 & 0.8091\\ -->
+<!-- \end{bmatrix} -->
+<!-- \end{equation} -->
+
+

@@ -1,0 +1,76 @@
+---
+title: "Week 13 Classwork/Homework Assignment"
+author: "John Vinson"
+date: "10/23/2017"
+output: pdf_document
+---
+
+*For the assignment, you only need to turn in a completed pdf. You may need to attach a hand written document showing your work for these problems.  Make sure that the compiled documents will display all the required code to get your results.*
+
+\begin{center}
+{\bf The assignment is due Tuesday November 14 at 3:30 PM.}
+\end{center}
+
+\vspace{12pt}
+
+1. Define and describe the following terms:
+
+- probability
+- frequency and relative frequency
+- probability distribution function (pdf)
+- probability density function (also, pdf)
+- cumulative distribution function (cdf)
+- conditional probability
+- Bayes' Theorem
+- independent events
+- dependent events
+- expected value
+- variance
+- Normal distribution (M), Poisson distribution (N), Binomial distribution (K)
+
+\vspace{12pt}
+
+2. A couple plans on having two children. What is the probability (assuming that each sex has the same probability of occurring) that the couple will have: 
+- one child of each sex?
+- both children of the same sex?
+
+\vspace{12pt}
+
+3. The following table gives the number of AIDS deaths in 2000 for people over age 13. Use the table to find the probability that a person who died of AIDS in 2000
+- is Hispanic.
+- is female.
+- is female or Hispanic. 
+- is male or black (non-Hispanic).
+
+\begin{center}
+```{r, echo=FALSE, results="asis", fig.align='center'}
+library("knitr")
+
+male = c(5759, 6667, 2674, 211, 15383)
+female = c(940, 3278, 763, 81, 5074)
+
+le.df = data.frame(rbind(male, female))
+
+kable(le.df, col.names = c("white, non-hispanic", "black, non-hispanic", "hispanic", "other", "total"), format="latex", align="c")
+```
+\end{center}
+
+\vspace{12pt}
+
+4. You have a population that has a critical population size C.  You begin the population at $N_0=C/2$.  The probability of a birth or death are equal for any population size.  What is the probability that the population either reaches C or goes extinct? 
+
+\vspace{12pt}
+
+5. A son is practicing tennis with his coach and father.  The father makes a bet that the son cannot consecutively win two matches in a row in a three match set.  In these sets the son cannot play against the same person twice since the father and coach need to rest between matches.  The son knows he has a better chance of beating his dad than he does the coach. What order should he play against them to optimize his chances of winning? 
+
+\vspace{12pt}
+
+6. Smith has two children. You meet Smith and a child who is a boy. What is the probability that the second child is a boy?
+
+John proposes that before meeting the first child, the possible events in Smith's family are $\{GG, GB, BG, BB \}$, where G represents a girl and B represents a boy.  Since we met a boy this eliminates the possibility of GG from Smith's children. This leaves the possible events as $\{GB, BG, BB \}$. Assuming each family mix has the same probability, the probability that the second child is a boy is $\frac{1}{3}$. 
+
+Is his reasoning correct? Explain.
+
+\vspace{12pt}
+
+7. Suppose you're on a game show, and you're given the choice of three doors.  Behind one door is a car and behind the others are goats. You pick a door (let's say door 1), and the host, who knows what's behind the doors, opens the door (say door 3), which has a goat. He then says to you, "Do you want to pick door 2?" Is it to your advantage to switch your choice?

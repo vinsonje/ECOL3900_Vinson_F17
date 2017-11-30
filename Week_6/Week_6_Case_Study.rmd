@@ -1,0 +1,148 @@
+---
+title: "Week 6: Stage-Structured Population Growth"
+author: "John Vinson"
+date: "9/5/2017"
+output: pdf_document
+header-includes:
+   - \usepackage{wrapfig}
+   - \usepackage{graphicx}
+---
+
+\begin{center}\textbf{The assignment is due Tuesday, September 27  by 8 PM. You only need to turn in a printed pdf of the completed assignment.  Make sure that you've knitted your document showing any relevant code.}
+
+\textit{This exercise contains 11 questions. Please make sure you address all of them when completing the case study.}\end{center}
+
+#Introduction
+
+Recall from our previous case study that we can model the growth of populations through density-independent, discrete-time model:
+
+\begin{equation}
+N_{t+1} = \lambda N_t
+\end{equation}
+
+In our model, $N_{t+1}$ represents the number of individuals in the population at the next time point,  $N_t$ is the number of individuals in the population at the next time point and $\lambda$ is the reproductive multiplier.  Here, $\lambda$ can be broken down into the per capita birth rate ($b_0$) and the per capita death rate ($d_0$) such that $\lambda = b_0 - d_0 + 1$. Remember that $t$ can only take discrete integers. For this model, $t \in \{1, 2, 3, 4,..., N\}$. Remember, that for values of $\lambda > 1$ the population will grow to infinity $\forall N_0 \in \mathbb{R}^+$. 
+
+However, this model may not be useful to describe all populations.
+
+###Questions
+**1. What are the assumptions of this model? What are we assuming about the individuals in the population?** 
+
+If we assume that there are inherit differences amoung individuals that are of different stages or age classes, we and model the dynamics of a population using a system of differential equations.  Let's assume that we separate our population into three distinct age-classes: newborns (B),  children (C), and adults (A). We can write the general system of recursive equations to represent that dynamics of this population as: 
+
+\begin{align}
+B_{t+1} =& f_B B_t + f_C C_t + f_A A_t\\
+C_{t+1} =& p_{CB} B_t + p_{CC} C_t + p_{CA} A_t\\
+A_{t+1} =& p_{AB} B_t + p_{AC} C_t + p_{AA} A_t\\
+\end{align}
+
+Let's further define our population:
+
+- Newborn individuals and children do not produce any offspring (newborns).
+- Individuals cannot regress back to an age class (i.e. children cannot become newborns again).
+- Newborn individuals progress to children after one time step. 
+
+We can revise our general expression to:
+
+\begin{align}
+B_{t+1} =& f_A A_t\\
+C_{t+1} =& p_{CB} B_t + p_{CC} C_t\\
+A_{t+1} =& p_{AC} C_t + p_{AA} A_t\\
+\end{align}
+
+This system can be presented in matrix form as.
+
+\begin{equation}
+\begin{bmatrix}
+B_{t+1}\\
+C_{t+1}\\
+A_{t+1}\\
+\end{bmatrix} = 
+\begin{bmatrix}
+0 & 0 & f_A \\
+p_{CB} & p_{CC} & 0 \\
+0 & p_{AC} & p_{AA} \\
+\end{bmatrix}
+\begin{bmatrix}
+B_{t}\\
+C_{t}\\
+A_{t}\\
+\end{bmatrix}
+\end{equation}
+
+For the rest of the case study we will use the matrix form to represent the system of equations describing the dynamics of the population. 
+
+##Exercise
+
+Let's begin by investigating the population of sea-turtles such as those investigated in Crouse et al. 1987 and Crowder et al. 1994.  We will separate the population into five distinct stages: hatchlings, small and large juvinales and small and large adults. 
+
+\begin{figure}
+\centerline{\includegraphics[width=0.75\textwidth]{/opt/home/vinsonje/ECOL3900_Vinson_F17/images/sea_turtle_diagram.jpg}}
+\caption{Diagram describing the structure and transitions of the sea turtle population from Crowder et al. 1994.}
+\end{figure}
+
+###Questions
+**2. Given the above diagram in Figure 1 for the sea turtle population, write the Leslie matrix. What are the assumptions of this model?**
+
+**3. Write a function that will calculate the the population size of each stage of a stage-structured population given the Leslie matrix, initial population size, and the number of time steps. The function should return a dataframe with 6 columns: time and the population size of each stage. **
+
+**4. Using this function and the Leslie matrix from Q2, plot the trajectory of the population for the first 100 time steps with an initial population size of 2000 hatchling, 500 small juvenile, 300 large juvenile, 300 small adult and 1 large adult.**
+
+**5. Calculate $\lambda$ for the population for each time step. What does does $\lambda$ converge to? At what time does this happen? What does this value of $\lambda$ mean for the sea turtle population?**
+
+**6. Find the stable age distribution of the population.**
+
+**7. Using the *eigen* function, determine the dominant eigenvalue and the corresponding (right) eigenvector of the Leslie matrix. Divide each element of the eigenvector by the sum of the vector. What are these values biologically?**
+
+**8. Change the initial stage sizes to 75 hatchling and 1 indidivual for all other classes. Describe what we are testing by doing this. What does it have on the population trajectory of the sea turtles? In the short run (first ~10 time steps)? In the long run?**
+
+**9. Let's investigate the effect of Turtle Exclusion Devices (TEDS), modify your leslie matrix to**
+
+\begin{equation}
+\begin{bmatrix}
+0 & 0 & 0 & 5.448 & 69.39 \\
+0.675 & 0.703 & 0 & 0 & 0 \\
+0 & 0.047 & 0.767 & 0 & 0 \\
+0 & 0 & 0.022 & 0.765 & 0 \\
+0 & 0 & 0 & 0.068 & 0.876 \\
+\end{bmatrix}
+\end{equation}
+
+**What have we changed in the Leslie matrix? Discuss what this means biologically.**
+**If the initial population size of the sea turtles is 30,000 hatchling, 50,000 small juveniles, 18,000 large juveniles, 2,000 small adults and 2 adult.  How does this influence the population dynamics? Plot the population trajectory and discuss how $\lambda$ and the stable age distribution has changed.**
+
+**10. Another conservation effort targets the survival of eggs into hatchlings.  A large source of mortality occurs between the eggs are laid in a nest and when they reach a safe area in the sea. To increase survival, efforts have protected nests on beaches and even removed eggs to protected hatcheries. Let's assume that TEDS are not used, how much would the fecundity of small and large adults need to increase in order to have a sustainable sea turtle population? How much does it have to increase to have the same effect as the TEDS? Address these questions by modifying the variable S (fecundity multiplying factor).**
+
+```{r, echo=TRUE}
+S = 1 #fecundity multiplying factor 
+
+L.mat = matrix(c(0, 0, 0, S*4.665, S*61.896,
+                 0.675, 0.703, 0, 0, 0,
+                 0, 0.047, 0.657, 0, 0,
+                 0, 0, 0.019, 0.682, 0,
+                 0 ,0, 0, 0.061, 0.8091), nrow=5, byrow=TRUE)
+
+```
+
+**11. One of the assumptions in these previous models is density-independent fecundity of adult individuals.  However, this is unrealistic as adults compete for seagrass other resources. We can modify the model to have the fecundity as a function of the number of adults in the population. We define the fecundity function as:**
+
+\begin{equation}
+F_{i}(A) = \frac{F_{imax}}{1+(A*10^{-5})}
+\end{equation}
+
+**Here, $F_i$ is the fecundity of stage i, $F_{imax}$ is maximum fecundity of stage i which we will define as the fecundity from the original matrix and A is the total number of adults in the sea turtle population. Plot the relationship between A and fecundity of small and large adults. Allow $A \in \{1, 4,000,000 \}$.**
+
+**Assuming the initial population from Q9, plot the trajectory of the population for 400 years. How does this compare with the density-independent models?**
+
+##References
+
+Crouse, Deborah T., Larry B. Crowder, and Hal Caswell. "A stage-based population model for loggerhead sea turtles and implications for conservation." Ecology 68.5 (1987): 1412-1423.
+
+Crowder, Larry B., et al. "Predicting the impact of turtle excluder devices on loggerhead sea turtle populations." Ecological Applications 4.3 (1994): 437-445.
+
+
+
+
+
+
+
+

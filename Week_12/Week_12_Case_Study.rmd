@@ -1,0 +1,353 @@
+---
+title: "Week 12: 28 Time Units Later"
+author: "John Vinson"
+date: "10/31/2017"
+output: pdf_document
+header-includes:
+   - \usepackage{wrapfig}
+   - \usepackage{graphicx}
+---
+
+\begin{center}\textbf{The assignment is due Tuesday, November 7 by 8 PM. You only need to turn in a printed pdf of the completed assignment.  Make sure that you've knitted your document showing any relevant code.}
+
+\textit{This exercise contains 18 questions. Please make sure you address all of them when completing the case study.}\end{center}
+
+##Zombie outbreak model
+
+In our previous study, we discussed a potential model for zombie pathogen transmission. 
+
+\begin{align}
+\frac{dS}{dt} =& bS - mS - aSZ\\
+\frac{dU}{dt} =& aSZ - zU\\
+\frac{dZ}{dt} =& zU - kSZ\\
+\frac{dD}{dt} =& kSZ + mS
+\end{align}
+
+1. Write the function that is needed for the *ODE* function.  The function should have three arguments and return the resulting differential equation for each compartment.
+
+\vspace{12pt}
+
+```{r, echo=FALSE, eval=FALSE}
+library(deSolve)
+zom.fun = function(t, y, parms){
+  with(as.list(c(y, parms)), {
+    
+    dS = b*S - m*S - a*S*Z
+    dU = a*S*Z - z*U
+    dZ = z*U - k*S*Z
+    dD = k*S*Z + m*S
+    
+    return(list(c(dS, dU, dZ, dD)))
+  })
+}
+
+time.vec = seq(0, 100, 0.1)
+
+b = 1.0
+m = 1.0
+
+a = 0.5
+z = 0.5
+k = 1.0
+
+params = c(b=b, m=m, a=a, z=z, k=k)
+
+S0 = 1000
+U0 = 100
+Z0 = 0
+D0 = 0
+
+y0 = c(S=S0, U=U0, Z=Z0, D=D0)
+
+out = data.frame(ode(y0, time.vec, zom.fun, params))
+
+par(lwd=2.0)
+plot(S~time, data=out, ylim=c(0,max(out[,2:4])), type="l")
+lines(Z~time, data=out, col="red")
+lines(U~time, data=out, col="blue")
+```
+
+2. Using the parameters in the table below, plot the trajectory of the population for 100 time steps. What happens to the population as time goes on?
+
+Table 1. Parameter values for question 2.
+```{r, echo=FALSE}
+params = c("b", "m", "a", "1/z", "k", "S0", "U0", "Z0", "D0")
+desc = c(
+  "density-independent per capita birth rate of susceptible individuals",
+  "density-independent per capita death rate of susceptible individuals",
+  "transmission rate of the pathogen from zombies to susceptible individuals", 
+  "duration of zombie latent period/time that an undead takes to become a zombie",
+  "extermination rate of zombies from susceptible individuals", 
+  "initial number of susceptible individuals",
+  "initial number of undead individuals",
+  "initial number of zombies",
+  "initial number of dead"
+)
+
+value = c(1.0, 1.0, 0.5, 0.5, 1.0, 1000, 100, 0, 0)
+
+params.df.1 = data.frame(desc, value)
+colnames(params.df.1) = c("description", "value")
+rownames(params.df.1) = params
+
+knitr::kable(params.df.1, format="markdown")
+```
+
+\vspace{12pt}
+
+3. What happens when the parameters are changed to the table below? Biologically, what has changed?
+
+Table 2. Parameter values for question 3.
+```{r, echo=FALSE}
+params = c("b", "m", "a", "1/z", "k", "S0", "U0", "Z0", "D0")
+desc = c(
+  "density-independent per capita birth rate of susceptible individuals",
+  "density-independent per capita death rate of susceptible individuals",
+  "transmission rate of the pathogen from zombies to susceptible individuals", 
+  "duration of zombie latent period/time that an undead takes to become a zombie",
+  "extermination rate of zombies from susceptible individuals", 
+  "initial number of susceptible individuals",
+  "initial number of undead individuals",
+  "initial number of zombies",
+  "initial number of dead"
+)
+
+value = c(1.0, 1.0, 1, 1.1, 0.5, 1000, 100, 0, 0)
+
+params.df.1 = data.frame(desc, value)
+colnames(params.df.1) = c("description", "value")
+rownames(params.df.1) = params
+
+knitr::kable(params.df.1, format="markdown")
+```
+
+\vspace{12pt}
+
+4. Let's take a step back, what are the dynamics like when there are no zombies in the population? Does this population reach an equilibrium? Is this realistic? What could we include to make this more realistic? To test this use the change the parameters to the values in the table below (table 4). 
+
+Table 4. Parameter values for question 4.
+```{r, echo=FALSE}
+params = c("b", "m", "a", "1/z", "k", "S0", "U0", "Z0", "D0")
+desc = c(
+  "density-independent per capita birth rate of susceptible individuals",
+  "density-independent per capita death rate of susceptible individuals",
+  "transmission rate of the pathogen from zombies to susceptible individuals", 
+  "duration of zombie latent period/time that an undead takes to become a zombie",
+  "extermination rate of zombies from susceptible individuals", 
+  "initial number of susceptible individuals",
+  "initial number of undead individuals",
+  "initial number of zombies",
+  "initial number of dead"
+)
+
+value = c(1.0, 0.9, 1, 1.1, 1.0, 1000, 0, 0, 0)
+
+params.df.1 = data.frame(desc, value)
+colnames(params.df.1) = c("description", "value")
+rownames(params.df.1) = params
+
+knitr::kable(params.df.1, format="markdown")
+```
+
+\vspace{12pt}
+
+We can introduce density dependence into the population through the birth term in the susceptible equation. In your function revise the equation for the susceptible individuals to be:
+
+\begin{equation}
+\frac{dS}{dt} = (b_0-b_1 S)S - mS - aSZ
+\end{equation}
+
+\vspace{12pt}
+
+5. Assuming density-dependence what are the dynamics of the population? Does the population reach an equilibrium?
+
+\vspace{12pt}
+
+We now want to determine under what conditions could a zombie outbreak occur. We will derive an expression which contains parameters (and potentially state variables) of the model.
+
+\vspace{12pt}
+
+6. What compartments are important for pathogen transmission? In other words, when an infection event occurs what compartment increases in number? What compartment when an individual dies is there a loss of an infectious or potentially infectious individual?
+
+\vspace{12pt}
+
+We can separate each of these equations into gains and losses.
+
+Gains, an infection event
+
+Undead: $aSZ$
+
+Zombie: 0
+
+Losses, loss from the classes of interest
+
+Undead: $zU$
+
+Zombie: $kSZ - zU$
+
+\vspace{12pt}
+
+7. For each of these classes, calculate the following matrices.
+
+\begin{equation}
+G = \begin{bmatrix}
+\frac{d}{dU} \text{ Undead Gains} && \frac{d}{dU} \text{ Zombie Gains}\\
+\frac{d}{dZ} \text{ Undead Gains} && \frac{d}{dZ} \text{ Zombie Gains}
+\end{bmatrix}
+\end{equation}
+
+\begin{equation}
+L = \begin{bmatrix}
+\frac{d}{dU} \text{ Undead Losses} && \frac{d}{dU} \text{ Zombie Losses}\\
+\frac{d}{dZ} \text{ Undead Losses} && \frac{d}{dZ} \text{ Zombie Losses}
+\end{bmatrix}
+\end{equation}
+
+Evaluate each matrix at the disease-free equilibrium (the equilibrium when there is no zombies in the population). 
+
+\vspace{12pt}
+
+8. Invert the L matrix. 
+
+\vspace{12pt}
+
+9. Find $F = GL^{-1}$
+
+\vspace{12pt}
+
+10. Find the dominant eigenvalue of the F matrix using the following formula. 
+
+\begin{equation}
+\lambda = \frac{1}{2} T \pm \sqrt{\frac{T^2}{4}-D}
+\end{equation}
+
+where T is the trace of the matrix and D is the determinant. 
+
+\vspace{12pt}
+
+11. The value that you found was the reproductive number ($R_0$) of the zombie pathogen.  Define $R_0$ and list some $R_0$ values for other pathogens. 
+
+\vspace{12pt}
+
+12. Using the parameter values from Table 1, what is the $R_0$ of the system? Using the parameters from Table 2? 
+
+\vspace{12pt}
+
+13. Assuming all parameters are constant (using the values from Table 1), what is the value that the zombie attack rate (a) has to be greater than for an outbreak to occur?
+
+\vspace{12pt}
+
+14. What do we assume about how humans and zombies interact? What could we change about our model to reflect a more realistic scenario?
+
+\vspace{12pt}
+
+Lets assume a type II functional response to describe the contact/attack of susceptible humans from zombies. We revise our equations for susceptible and undeads to be:
+
+\begin{align}
+\frac{dS}{dt} =& (b_0-b_1 S)S - mS - \frac{aS}{1+aT_hS} p Z\\
+\frac{dU}{dt} =& \frac{aS}{1+aT_hS} p Z - zU
+\end{align}
+
+Table 5. Parameter values for question 16.
+```{r, echo=FALSE}
+params = c("b", "b0", "m", "a", "1/z", "k", "Th", "p", "S0", "U0", "Z0", "D0")
+desc = c(
+  "density-independent per capita birth rate of susceptible individuals",
+  "density-dependent per capita birth rate of susceptible individuals",
+  "density-independent per capita death rate of susceptible individuals",
+  "transmission rate of the pathogen from zombies to susceptible individuals", 
+  "duration of zombie latent period/time that an undead takes to become a zombie",
+  "extermination rate of zombies from susceptible individuals",
+  "handling time",
+  "probability that contact with a zombie leads to infection",
+  "initial number of susceptible individuals",
+  "initial number of undead individuals",
+  "initial number of zombies",
+  "initial number of dead"
+)
+
+value = c(1.0, 0.001, 0.01, 1.1, 1.0, 0.001, 1.0, 1.0, 1000, 100, 0, 0)
+
+params.df.1 = data.frame(desc, value)
+colnames(params.df.1) = c("description", "value")
+rownames(params.df.1) = params
+
+knitr::kable(params.df.1, format="markdown")
+```
+
+```{r, echo=FALSE, eval=FALSE}
+tII = function(S, b, Th) {return(b*S/(1+b*Th*S))}
+S.seq = seq(0,100)
+
+plot(S.seq, tII(S.seq, 0.1, 1.0))
+
+```
+
+\vspace{12pt}
+
+15. What are the different potential function responses and what do they mean biologically? Create a graph that displays their differences. In our new systems of equations what are $a$ and $T_h$?
+
+\vspace{12pt}
+
+16. Revise the function from question 1 to reflect our new system of equations and plot the dynamics using the parameter values found in Table 5. 
+
+```{r, echo=FALSE, eval=FALSE}
+library(deSolve)
+zom.fun = function(t, y, parms){
+  with(as.list(c(y, parms)), {
+    
+    dS = (b0-b1*S)*S - m*S - a*S/(1+a*Th*S)*p*Z
+    dU = a*S/(1+a*Th*S)*p*Z - z*U
+    dZ = z*U - k*S*Z
+    dD = k*S*Z + m*S
+    
+    return(list(c(dS, dU, dZ, dD)))
+  })
+}
+
+time.vec = seq(0, 100, 0.1)
+
+b0 = 1.0
+b1 = 0.001
+m = 0.01
+
+a = 1.1
+p = 1.0
+z = 1.0
+k = 0.001
+Th = 1.0
+
+params = c(b0=b0, b1=b1, m=m, a=a, z=z, k=k, Th=Th, p=p)
+
+S0 = 1000
+U0 = 100
+Z0 = 0
+D0 = 0
+
+R0 = a*p/(a*k*Th*500+k)
+
+y0 = c(S=S0, U=U0, Z=Z0, D=D0)
+
+out = data.frame(ode(y0, time.vec, zom.fun, params))
+
+plot(S~time, data=out, ylim=c(0,max(out[,2:4])))
+lines(Z~time, data=out, col="red")
+```
+
+17. What has happened to the dynamics of the system?
+
+\vspace{12pt}
+
+18. Find the $R_0$ of the pathogen using the next-generation matrix method (the steps from questions 6-10). Think critically about and discuss how these parameters are combined and influence parasite fitness. What happens if the extermination rate (k) is changed? Plot the dynamics when $k = 0.003$. 
+
+
+
+
+
+
+
+
+
+
+
+

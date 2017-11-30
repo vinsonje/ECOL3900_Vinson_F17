@@ -1,0 +1,133 @@
+---
+title: "Week 2 Classwork/Homework Assignment Answers"
+author: "John Vinson"
+date: "August 21, 2017"
+output: pdf_document
+---
+
+*For the assignment, you will submit a R Markdown (.rmd) file and the compiled document as both a pdf and html. Make sure that the compiled documents will display all the required code to get your results.*
+
+\center __The homework assignment is due August 25, 2017.__ \center
+
+\vspace{24pt}
+
+1. Write and execute a chunk of code that performs each of these operations.  For each line of code, annotate it to describe what it will do when run.
+
+- Print the line "Here are my answers for Question 1." 
+- Compute the product of six and five.
+- Compute eight to the fifth power.
+- Compute the product of two variables, A and B, where A is nine and B is eighty.
+
+```{r, echo=TRUE, eval=TRUE}
+print("Here are my answers for Question 1.") #print the line "Here are my answers for Question 1."
+
+6*5 #calculates the product of 8 and 5
+
+8^5 #calculates 8 raised to the 5th power
+
+A=9 #initialize the variable A
+B=80 #initialize the variable B
+
+A*B #calculates the product of variables A and B
+
+```
+
+\vspace{12pt}
+
+2. Use the following set to complete the following operations.
+\begin{equation}
+\{13.0,1.0,5.0,8.0,1.0,0.0,34.0,2.0,21.0,0.0,3.0\}
+\end{equation}
+
+- Create a vector named *Ornacia* using the set.
+- Determine the length of the vector.
+- Find the position of value 21.
+- Find the highest values and the positions of the value(s).
+- Find the lowest value(s). Display the lowest values(s).
+- Create a new vector, *Ornacia.Order*, which is the vector ordered  from the lowest to highest numbers. 
+- Create a new vector, *Ornacia.Even*, which are only the values of the even positions in the vector.
+- Append the following numbers to the end of the vector *Ornacia* $\{55.0, 89.0\}$
+- Create a new vector, *Ornacia.Half*, which contains all half of all the values of *Ornacia*.
+
+```{r, echo=TRUE, eval=TRUE}
+Ornacia = c(13.0,1.0,5.0,8.0,1.0,0.0,34.0,2.0,21.0,0.0,3.0)
+
+length(Ornacia)
+
+max(Ornacia)
+which(Ornacia == max(Ornacia))
+
+min(Ornacia)
+which(Ornacia == min(Ornacia))
+
+which(Ornacia == 21)
+
+Ornacia.Order = Ornacia[order(Ornacia)]
+Ornacia.Order
+
+Ornacia.Even = Ornacia[seq(2, length(Ornacia), by=2)]
+Ornacia.Even
+
+Ornacia = c(Ornacia, c(55.0, 89.0))
+#Or you could do
+#Ornacia = append(Ornacia, c(55.0, 89.0))
+Ornacia
+
+Ornacia.Half = Ornacia/2
+Ornacia.Half
+```
+
+\vspace{12pt}
+
+3. Import the dataset "eBird_BotGarden_2016.csv". These are estimated abundances of birds seen at the State Botanical Gardens of Georgia (Athens, GA) each week of 2016.  Perform the following operations:
+
+- Plot the weekly abundance of the Northern Flicker as a bar graph. 
+- Plot the weekly abundance of the Barred Owl, Canada Goose and Red Shouldered Hawk on a single line graph each with a different color. Create a legend for each of the species. 
+
+```{r, echo=FALSE}
+setwd("/opt/home/vinsonje//ECOL3900_Vinson_F17/Data")
+ebird.data = read.csv("eBird_BotGarden_2016.csv")
+
+barplot(ebird.data$Northern.Flicker, xlab="week", ylab="estimated abundance", names.arg = ebird.data$Week)
+
+plot(ebird.data$Week, ebird.data$Barred.Owl, type="l", xlab="week", ylab="estimated abundance")
+lines(ebird.data$Week, ebird.data$Canada.Goose, col="firebrick")
+lines(ebird.data$Week, ebird.data$Red.shouldered.Hawk, col="dodgerblue")
+legend("topleft", c("Barred Owl", "Canada Goose", "Red Shouldered Hawk"), col=c("black", "firebrick", "dodgerblue"), lwd=2.0)
+```
+
+\vspace{12pt}
+
+4. Using the eBird data (from question 3), write a function that will calculate the average abundance of a specified species for the year.  Your function should have two arguments/inputs: the dataset and the name of the species. The output should be a single number (the average). Find the average abundance for the Canada Goose. (Hint: The *names* function will return the column names of a data frame.)
+
+```{r, echo=TRUE, eval=TRUE}
+averaging.fun = function(data, species){
+  species.names = names(data)
+  col.need = which(species.names==species)
+  return(mean(data[,col.need]))
+}
+
+averaging.fun(ebird.data, "Canada.Goose")
+```
+
+\vspace{12pt}
+
+5. Using your averaging function, write script to create a new dataframe containing the names and average abundance of every species that has an average abundance greater than 5 individuals. Your resulting data frame should have two columns: the name of the species and their average abundance. 
+
+```{r, echo=TRUE, eval=TRUE}
+avg.abun = NULL
+species.keep = NULL
+
+for(i in names(ebird.data)){
+  if(i != "X" && i != "Week") {
+    avg.temp = averaging.fun(ebird.data, i)
+    if(avg.temp>5){avg.abun = c(avg.abun, avg.temp)
+      species.keep = c(species.keep, i)
+      }
+  }
+}
+
+ebird.avg.data = data.frame(species.keep, avg.abun)
+
+ebird.avg.data
+```

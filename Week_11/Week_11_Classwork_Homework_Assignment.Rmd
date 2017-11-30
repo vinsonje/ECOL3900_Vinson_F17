@@ -1,0 +1,80 @@
+---
+title: "Week 11 Classwork/Homework Assignment"
+author: "John Vinson"
+date: "10/23/2017"
+output: pdf_document
+---
+
+*For the assignment, you only need to turn in a completed pdf. You may need to attach a hand written document showing your work for these problems.  Make sure that the compiled documents will display all the required code to get your results.*
+
+\begin{center}
+{\bf The assignment is due Tuesday October 31 at 3:30 PM.}
+\end{center}
+
+\vspace{12pt}
+
+1. Define and describe the following terms:
+
+- stable
+- unstable
+- neutrally stable
+- asymptotically stable
+- cobweb plot
+- Jacobian matrix
+
+\vspace{12pt}
+
+2. Write a function that creates a cobweb plot for the model $N_{t+1} = N_t (1+r(1-\frac{N_t}{K}))$. You should return a figure similar to the one below. 
+
+```{r, echo=FALSE, eval=TRUE, fig.align='center'}
+cobweb = function(x0, r, K, t.max){
+  x.vec = x0
+  y.vec = 0
+  
+  x.t = x0
+  
+  for(i in 1:t.max){
+    x.t1 = x.t*(1+r*(1-x.t/K))
+    x.vec = append(x.vec, x.t)
+    y.vec = append(y.vec, x.t1)
+    
+    x.vec = append(x.vec, x.t1)
+    y.vec = append(y.vec, x.t1)
+    
+    x.t = x.t1
+  }
+  
+  out=cbind(x.vec, y.vec)
+  
+  plot(y.vec~x.vec, data=out, type="l", xlim=c(0, max(x.vec)*2), xlab="xt", ylab="xt+1")
+  abline(a=0, b=1, col="red")
+  
+  x.seq = seq(0, max(x.vec)*2, 0.1)
+  lines(x.seq, x.seq*(1+r*(1-x.seq/K)), col='blue')
+}
+
+cobweb(10, 2.0, 100, 1000)
+
+
+```
+
+\vspace{12pt}
+
+3. For each of the following population models, determine all the possible equilibrium values using a cobweb plot and plot long-term dynamics. 
+
+- $N_{t+1} = N_t (1+r(1-\frac{N_t}{K}))$ with $r=0.25$, $K=100$ and $N_0=1$
+- $N_{t+1} = N_t (1+r(1-\frac{N_t}{K}))$ with $r=2.2$, $K=100$ and $N_0=40$
+
+\vspace{12pt}
+
+4. Robert MacArthur introduced the following model to describe a consumer-resource system in which the supply of resource (R) is at a constant rate (F) from an external source (e.g., allochthonous input to streams), resource capture by consumers (C) occur at a rate a and captured resources are converted to consumer biomass with efficiency K. The death rate of the consumer is d.
+
+\begin{align}
+\frac{dR}{dt} =& F - aRC\\
+\frac{dC}{dt} =& C(KaR - d)
+\end{align}
+
+- Find the equilibrium levels of R and C ($R^*$ and $C^*$).
+- Describe how $R^*$ changes as a function of a.
+- Describe how $C^*$ changes as a function of a.
+- Find the Jacobian of the model. 

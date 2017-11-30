@@ -1,0 +1,236 @@
+---
+title: "Week 4: Human Population Growth"
+author: "John Vinson"
+date: "9/5/2017"
+output: pdf_document
+header-includes:
+   - \usepackage{wrapfig}
+   - \usepackage{graphicx}
+---
+
+\begin{center}\textbf{The assignment is due Tuesday, September 12 by 8 PM. You only need to turn in a printed pdf of the completed assignment.  Make sure that you've knitted your document showing any relevant code.}
+
+\textit{This exercise contains 20 questions. Please make sure you address all of them when completing the case study.}\end{center}
+
+#Introduction
+
+##What are models?
+Models are representations of patterns and processes  of the real-world.  A goal of models is to replicate something that is going on in nature.  We can use models to make predictions, test hypotheses and understand the drivers of patterns seen in nature.  Overall, models allow us to simplify nature and conceptualize what is actually out there.  
+
+Two types of models are statistical and mathematical models.  Statistical models relate predictors to defined response variables to determine any influence these have on responses. Typically these models address the question of "does our response variable(s) appear to depend our predictor(s)". In our case, mathematical models represent biological processes as mathematical expressions to describe observable quantities.  
+
+Mathematical models can be categorized as stochastic or deterministic. A stochastic model includes some noise and each time that the model is run will produce a different result. On the other hand, a deterministic model does not include the noise which results in the same trajectory each run. This exercise will only focus on deterministic, mathematical models. 
+
+##The anatomy of a model
+
+A mathematical model is made up of two types of values. The first are **state variables** which describe the state of the system.  These are observable, tractable quantities that we are interested in keeping track of. The second type are **parameters** these are fixed values which are used when describing the state of the system. 
+
+Given the model which describes the dynamics of an infectious disease (SI model)
+
+\begin{align}
+\dot{S} &= -\beta S I\\
+\dot{I} &= \beta S I
+\end{align}
+
+There are two state variables S and I (the proportion of susceptible and infected individuals in a population).  There is only one parameter in this model $\beta$ (which represents the transmission rate of the pathogen).
+
+#Population ecology
+
+Population ecology is one of the most quantitatively described sub-disciplines of ecology.  A population is defined as a group of interacting individuals in a defined area at a specific time. In general, population ecology is the study of populations across space and time.  One way that we study population is through population growth models. Population growth models describe the number of individuals at a specific time and/or a specific location. Here we will discuss and investigate two well known population growth models. But first let's think about what things can influence a population. 
+
+###Questions
+**1. What are the different components that can affect the number of individuals in a population? Write down a conceptual function for $\Delta N$. **
+
+\vspace{24pt}
+
+**$\Delta N = N_{t+\tau} - N_t =$**
+
+##Discrete-time, density-independent population growth
+
+We will begin with considering populations which remain unchanged during specific time intervals. We model this with discrete time which means that changes in population size occur at distinct time step. Population growth of organisms that have specific mating seasons or breeding patterns could be modeled using these models.  What this means is that population sizes only change at specific time points such as $t \in \{1, 2, 3, 4,..., N\}$. 
+
+\begin{wrapfigure}{R}{0.3\textwidth}
+\centering
+\includegraphics[width=0.25\textwidth]{/opt/home/vinsonje/ECOL3900_Vinson_F17/images/Mule_deer.jpg}
+\caption{Mule deer, \textit{Odocoileus hemionus}}
+\end{wrapfigure}
+
+Our first model represents density-independent population growth.  This means that the vital rates (birth and deaths) do not change based on the current individual identity or population size. Organisms that are able to reproduce constantly (e.g. not just at specific times of the  year) could be represented with the model. The model is given by:
+
+\begin{equation}
+N_{t+1} = \lambda N_t
+\end{equation}
+
+In our model, $N_{t+1}$ represents the number of individuals in the population at the next time point,  $N_t$ is the number of individuals in the population at the next time point and $\lambda$ is the reproductive multiplier.  Here, $\lambda$ can be broken down into the per capita birth rate ($b_0$) and the per capita death rate ($d_0$) such that $\lambda = b_0 - d_0 + 1$. Remember that $t$ can only take discrete integers. For this model, $t \in \{1, 2, 3, 4,..., N\}$.
+
+###Questions
+**2. In this model, what are the state variables and what are the parameters? What are the assumptions of this model? What do the values $b_0$ and $d_0$ represent (i.e. what is another way to describe what these values are)? **
+
+**3. Show that recursive model (equation 3) can be written as $N_t = \lambda^t N_0.$**
+
+**4. In R, write a function for the discrete-time, density-independent model.** 
+
+**5. Using this model (and function), plot the trajectory of a population with 100 individuals with an per capita birth rate 1.5 and per capita death rate 0.5 for 100 time steps. What is the population size at time 50 and 100? What happens to $N_t$ as $t$ approaches $\infty$?**
+
+**6. For what values of $\lambda$ does the population grow? Decline? Stay the same? What does this mean biologically? (Hint: remember that $\lambda = b_0 - d_0 + 1$.) Show this mathematically and demonstrate these results numerically. **
+
+##Continuous-time population growth
+
+It is not best to represent populations through a discrete time model. Rather than assuming that populations change at the end of a time interval, we can assume that change occurs at any and all points within a time interval. Examples of organisms that this model would represent are ones that are able to reproduce throughout a time period.  We can now represent our population model as
+
+\begin{equation}
+N_t = N_0 e^{rt}
+\end{equation}
+
+In our model, $N_t$ represents the number of individuals in the population at time t,  $N_0$ is the initial number of individuals in the population and r is the intrinsic growth rate of the population.  Here, r can be broken down into the per capita birth rate ($b_0$) and the per capita death rate ($d_0$) such that $r=b_0 - d_0$.  
+
+###Questions
+**7. In this model, what are the state variables and what are the parameters? What are the assumptions of this model? What are the assumptions of this model?**
+
+**8. In R, write a function for the model for discrete-time, density-independent model.**
+
+**9. Using this model (and function), plot the trajectory of a population with 100 individuals with an per capita birth rate 1.5 and per capita death rate 0.5 for 100 time steps. What is the population size at time 50 and 100?**
+
+**10. For what values of $r$ does the population grow? Decline? Stay the same? What does this mean biologically? (Hint: remember that $r = b_0 - d_0$.) Prove this mathematically and demonstrate these results numerically.**
+
+##Doubling time of a population
+We are often interested in how long it takes for population to double in size. This is called the doubling time of a population.
+
+###Questions
+**11. Determine which population population has a faster doubling time: discrete-time model with $\lambda=2.0$ or continous-time model with $r=1.0$. (We can show that $r \approx \lambda - 1$.) Show this both mathematically and numerically.**
+
+\newpage
+
+#Human population growth
+
+Often we are given data that we need to determine the appropriate model. To do this, we first need to determine how are we going to express what is going on with the data mathematically, in other words we need to determine what parameters and state variables are important and how those are combined to make our model. It is important to keep in mind any assumptions we are making with our model. After we have decided on the correct form of our model, we need to find the parameter values result in the best fit to our data. In this exercise, you will be given a data, choose a model, find the best parameter values and then critically analyze these results.  
+
+Below is the population sizes of humans from 1 to 2015 AD (in millions). 
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.align='center', fig.width=7, fig.height=4}
+setwd("/opt/home/vinsonje//ECOL3900_Vinson_F17/Data")
+
+hum.data = read.csv("Week4_data.csv")
+names(hum.data) = c("year", "pop.size")
+
+hum.temp = hum.data[23:88,]
+
+l.pop.size = log(hum.data$pop.size)
+
+par(mfrow=c(1,2))
+plot(pop.size~year, data=hum.data, xlab="year", ylab="human population size (in millions)", type="o", pch=16, main="1 to 2015")
+lines(pop.size~year, data=hum.temp, col="firebrick", type="o")
+
+plot(pop.size~year, data=hum.temp, type="o", xlab="year", ylab="", pch=16, col="firebrick", main="1950 to 2015")
+```
+
+
+For this exercise we are going to focus on the population from 1950 to 2015 (right panel).  
+
+**12. Looking at this data,  which of the population growth models would best fit the data? Recall what we are assuming in each of the models. Why?**
+
+We will use the density-independent continuous growth model.  
+
+\begin{equation}
+N_t = N_0 e^{rt}
+\end{equation}
+
+**13. In this model, what does $N_0$ represent in terms of our data? What does $N_t$ represent? What does $r$ represent?**
+
+What we are planning to do is estimate the parameter $r$ using the data. However, this may be difficult since we are considering an exponential function.  But what happens when we take the natural log ($ln$) of $N_t$?
+
+**14. Find $ln(N_t)$. Show you work.**
+
+You should find that 
+
+\begin{equation}
+ln(N_t) = ln(N_0) + rt
+\end{equation}
+
+**15. This is be a very familiar function. What is it?**
+
+*Code the following algorithm to estimate the growth parameter. (This code should appear in your final document).*
+
+1. Subset the data to only include the years 1950 to 2015. 
+
+2. Create a new column that is the number of years since 1950. 
+
+3. Create a new column that is the natural log of the population size for each year.
+
+4. Plot the number of years since 1950 and the natural log of the population size.
+
+5. Using the *lm* function find the best fit linear model for this data. 
+
+```{r, echo=FALSE}
+out = lm(log(hum.temp$pop.size)~seq(0,65))
+```
+
+6. From this model determine the parameters for $N_0$ and $r$. 
+
+**Questions**
+
+**16. Interpret the value for r. What does it mean biologically?**
+
+**16. Using this model determine what the human popluation size will be in 2100. Does this value seems reasonable? Why?**
+
+**17. What are the assumptions of this model? Are these realistic given our situation? What should be included in the model to make it "more realistic"? Why?**
+
+**18. Complete a literature search to find some estimates of how many people the earth can sustain. Discuss how these were calculated and any assumptions that were used to generate them.**
+
+**19. Using these estimates plot the trajectory of the human population until 2100 overlaid on the actual data (using the code below). Which value(s) seems the most reasonable? Why? How does this population trajectory compare to the density-independent model you found above?**
+
+**20. Discuss some factors that you think may influence the total number of humans that earth can sustain.**
+
+\newpage
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE, eval=FALSE}
+library(deSolve)
+#you may need to install this package
+
+log.model = function(t, y, parms){
+  with(as.list(c(y, parms)), {
+    
+    dN = r*N*(1-N/K)
+    
+   return(list(dN))
+  })
+}
+
+t.vec = seq(0, 150, 1)
+
+y0 = c(N=2557.629)
+
+K = 15000 #THIS IS WHERE YOU PUT IN YOUR ESTIMATE
+
+SSE = function(params){
+  
+  t.vec.temp = seq(0,65,1)
+  out.temp = as.data.frame(ode(y = y0, times=t.vec.temp, func=log.model, parms=c(r=params, K=K)))
+  
+  return(sum((out.temp$N-hum.temp$pop.size)^2))
+  
+}
+
+
+best.r.out = optim(0, fn=SSE, method="Nelder-Mead")
+
+log.out = as.data.frame(ode(y=y0, times=t.vec, func=log.model, parms=c(r=best.r.out$par, K=K)))
+
+plot(pop.size~seq(0,65), data=hum.temp, type="p", xlab="year",
+     ylab="human population size (in millions)", pch=16, col=rgb(0,0,0, alpha=0.25), 
+     xlim=c(0,150), ylim=c(2000,K))
+
+lines(N~time, data=log.out, col="dodgerblue", lwd=4.0, lty="dashed")
+
+```
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,193 @@
+---
+title: "Week 14 Classwork/Homework Assignment"
+author: "John Vinson"
+date: "11/13/2017"
+output: pdf_document
+---
+
+*For the assignment, you will submit the compiled pdf document as both a pdf. Make sure that the compiled documents will display all the required code to get your results.*
+
+\begin{center}
+{\bf The assignment is due Tuesday November 28 at 3:30 PM.}
+\end{center}
+
+\vspace{24pt}
+
+1. Compare and contrast stochastic and deterministic models. Make sure you discuss what they do and assume, when they are appropriate to use and 
+
+\vspace{12pt}
+
+2. Outline Gillespie’s direct method algorithm.
+
+\vspace{12pt}
+
+3. Assuming a deterministic model plot the trajectory of the density-dependent population model. What happens to the population over time. 
+
+\begin{equation}
+\frac{dN}{dt} = (b_0 - b_1N)N - (d_0 + d1N)N 
+\end{equation}
+
+Using the parameters and initial conditions
+
+Table 1. Parameter values and initial condition for questions 3 and 5. 
+\begin{center}
+```{r, echo=FALSE, results="asis", fig.align='center'}
+library("knitr")
+
+parms = c("b0", "b1", "d0", "d1", "N0")
+vals = c(1.0, 0.001, 0.5, 0.004, 1)
+
+le.df = data.frame(cbind(parms, vals))
+
+kable(le.df, col.names = c("Parameter", "Value"), format="latex", align="c")
+```
+\end{center}
+
+```{r, echo=FALSE, eval=FALSE}
+library(deSolve)
+
+pop = function(t, y, parms){
+  with(as.list(c(y, parms)), {
+    
+    dN = (b0-b1*N)*N - (d0+d1*N)*N 
+    
+    return(list(c(dN)))
+  })
+}
+
+time.vec = seq(0, 100, 0.1)
+
+b0 = 1.0
+b1 = 0.001
+
+d0 = 0.5
+d1 = 0.004
+
+params = c(b0, b1, d0, d1)
+
+N0 = 1
+y0 = c(N = N0)
+
+out = data.frame(ode(y0, time.vec, pop, params))
+
+plot(N~time, data=out)
+```
+
+\vspace{12pt}
+4. Convert the deterministic model into a stochastic model using Gillespie’s direct method algorithm. 
+
+```{r, echo=FALSE, eval=FALSE}
+pop.onestep = function(x, params){
+  N = x[2]
+  
+  with(as.list(params), 
+       {
+         rates = c((b0-b1*N)*N, (d0+d1*N)*N)
+         
+         changes = matrix(c(1, -1), ncol=1, byrow=TRUE)
+         
+         tau = rexp(1, rate=sum(rates))
+         x[1] = x[1] + tau
+         
+         U = runif(1)
+         
+         m = min(which(cumsum(rates)>=U*sum(rates)))
+         
+         x[2] = x[2] + changes[m,]
+         
+         return(out = x)
+       }
+  )
+}
+
+
+pop.model = function(x0, params, nstep){
+  output = array(dim=c(nstep+1, 2))
+  colnames(output) = c("time", "N")
+  x = c(0, x0)
+  output[1,] = x
+
+  for(i in 1:nstep){
+    output[i+1,] = x = pop.onestep(x, params)
+  }
+  return(output)
+}
+
+b0 = 1.0
+b1 = 0.001
+
+d0 = 0.5
+d1 = 0.004
+
+params = c(b0, b1, d0, d1)
+
+N0 = 1
+y0 = c(N = N0)
+
+out.stoc = pop.model(y0, params, 200)
+
+```
+
+\vspace{12pt}
+
+5. Plot the trajectory of 50 simulations using the parameters found in Table 1. For each simulation allow the simulation to run for 500 steps.
+\vspace{12pt}
+
+6. Modify the algorithm to no longer require a number of time steps but rather will end the simulation when the population goes extinct. 
+
+\vspace{12pt}
+
+7. Determine the probability that a population goes extinct within 50 time steps using the parameters found in table 2? At any time?
+
+Table 2. Parameter values and initial conditions for question 7. 
+\begin{center}
+```{r, echo=FALSE, results="asis", fig.align='center'}
+library("knitr")
+
+parms = c("b0", "b1", "d0", "d1", "N0")
+vals = c(1.0, 0.001, 0.5, 0.004, 1)
+
+le.df = data.frame(cbind(parms, vals))
+
+kable(le.df, col.names = c("Parameter", "Value"), format="latex", align="c")
+```
+\end{center}
+
+```{r, echo=FALSE, eval=FALSE}
+nsim = 1000
+
+pop.model.new = function(x0, params){
+  output = NULL
+  x = c(0, x0)
+  output = matrix(x, nrow=1)
+  colnames(output) = c("time", "N")
+
+  while(x[2]>0){
+    x = pop.onestep(x, params)
+    output = rbind(output, x)
+  }
+  return(output)
+}
+
+b0 = 1.0
+b1 = 0.001
+
+d0 = 1.0
+d1 = 0.004
+
+params = c(b0, b1, d0, d1)
+
+out.new = pop.model.new(y0, params)
+
+```
+
+\vspace{12pt}
+
+8. Using the zombie outbreak model from the previous case studies, write a stochastic model.  Develop and address 2 problems or questions using this model. 
+
+\begin{align}
+\frac{dS}{dt} =& bS - mS - aSZ\\
+\frac{dU}{dt} =& aSZ - zU\\
+\frac{dZ}{dt} =& zU - kSZ\\
+\frac{dD}{dt} =& kSZ + mS
+\end{align}

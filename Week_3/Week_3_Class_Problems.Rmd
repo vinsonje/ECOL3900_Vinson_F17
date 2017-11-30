@@ -1,0 +1,112 @@
+---
+title: "Week 3 Class Problems"
+author: "John Vinson"
+date: "8/29/2017"
+output: pdf_document
+---
+
+1. For many species of fish, the weight W (in g) is a function of the length L (in mm) that can be expressed by
+
+\begin{equation}
+W = W(L) = kL^3
+\end{equation}
+
+where k is a constant. For a particular species of fish $k=0.02$ and the length of this species is a function of the number of years that the fish has been alive, t, and is given by
+
+\begin{equation}
+L = L(t) = 50-\frac{(t-20)^2}{10}
+\end{equation}
+with no fish living longer than 20 years. 
+
+- Determine how the weight of the fish changes with their age (time that they've been alive).
+- What are all the possible values of k? 
+- Plot how the weight of the fish changes through their lifetime. 
+- Mathematically find the age of the fish for which the weight will exceed 450 g.
+- Numerically find the age of the fish for which the weight will exceed 450 g. 
+
+```{r, echo=F, eval=FALSE}
+W = function(t){
+  L = 50 - ((t-20)^2)/10
+  return(0.02*L^3)
+}
+
+t.vec = seq(0, 20)
+
+plot(t.vec, W(t.vec))
+```
+
+\vspace{12pt}
+
+2. For fiddler crabs, data gathered by Thompson show that the relationship between the weight C of the claw and the weight of the body W is given by
+
+\begin{equation}
+C = 0.11W^{1.54}
+\end{equation}
+where W and C are in grams.  
+
+- What values can C and W take? 
+- Plot C for $W \in (0, 20]$.  
+- Write the function where the weight of the crab body is a function of claw weight.
+- For what values of the claw weight does the crab body weight exceed 6 g?
+
+```{r, echo=FALSE, eval=FALSE}
+fc = function(W){
+  return(0.11*W^1.54)
+}
+
+W.vec = seq(0,20, 0.1)
+
+plot(W.vec, fc(W.vec))
+```
+
+\begin{figure}
+\centerline{\includegraphics[width=0.5\textwidth]{/opt/home/vinsonje/ECOL3900_Vinson_F17/fiddler_crab.png}}
+\caption{Fiddler crab, \textit{Ucides cordatus}, from Margrave (1648)}
+\end{figure}
+
+\vspace{24pt}
+
+3. The following table give the number of AIDS-related deaths in the New York Prison System.
+
+```{r, echo=FALSE, results="asis", fig.align='center'}
+library("knitr")
+
+years = seq(1981, 1989, 1)
+years.2 = seq(1990, 1998, 1)
+deaths = c(2,4,18,57,99,124,151,158, 132)
+deaths.2 = c(175,229,208,223,246,256,181,60,39)
+
+aids.df = data.frame(years, deaths, years.2, deaths.2)
+
+kable(aids.df, col.names = c("year", "deaths", "year", "deaths"), format="latex", align="c")
+```
+
+- Create a scatter plot for the data in the table. Let the x-axis represent the number of years since 1980.
+- Determine an appropriate function that can be used to model the data. Why did you choose this function? Estimate the parameter values.
+- Using this model(function), determine what year the deaths was a maximum.
+
+```{r, echo=FALSE, eval=FALSE}
+years = seq(1981,1998)-1980
+deaths = c(2,4,18,57,99,124,151,158, 132,175,229,208,223,246,256,181,60,39)
+
+aids.data = data.frame(years, deaths)
+cub.fun = function(parms, year){return(
+  parms[1]*year^3 + parms[2]*year^2 + parms[3]*year + parms[4]
+)}
+
+sse = function(parms, data){
+  out = sum((cub.fun(parms, data[,1])-data[,2])^2)
+  return(out)
+}
+
+out = optim(c(0,0,0,0), fn=sse, data=aids.data, method="Nelder-Mead")
+
+plot(deaths~years)
+lines(years, cub.fun(out$par, years))
+
+book.ans = c(-0.278,5.543,-7.898,9.101)
+lines(years, cub.fun(book.ans, years), col="red")
+
+sse(book.ans, aids.data)
+sse(out$par, aids.data)
+```

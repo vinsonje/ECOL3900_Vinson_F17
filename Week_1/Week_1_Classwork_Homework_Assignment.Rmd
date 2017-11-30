@@ -1,0 +1,72 @@
+---
+title: "Week 1 Homework/Classwork Assignment"
+author: "John Vinson"
+date: "8/14/2017"
+output: pdf_document
+---
+
+*The purpose of this assignment is to refresh and review concepts related to Algebra.  The concepts covered in this assignment are found in Chapter 1 of* Calculus: Early Transcendentals. 
+
+\begin{center}
+{\bf The assignment is due Friday August 18 at 8:00 PM.}
+\end{center}
+
+\vspace{24pt}
+
+1. Find the constants a, b, c of the expression $\frac{4 x^{-1} y^2 \sqrt[3]{x}}{2 x \sqrt{y}}$ when written in the form $ax^by^c$. 
+
+\vspace{12pt}
+
+2. Solve the equations
+
+  - $\frac{x}{4x-16}-2 = \frac{1}{x-3}$
+
+  - $\sqrt{1-x} + x = 1$
+
+\vspace{12pt}
+
+3. Solve the inequalities.  Write your answers in union of intervals notation
+
+  - $x^3 \geq 4x^2$
+
+  - $\mid 2x+5 \mid + 4 \geq 1$
+
+\vspace{12pt}
+
+4. Suppose a triange in the (x,y)-plane has vertices (-1,0), (1,0), and (0,2).  Find the equations of the three lines that lie along the sides of the triangle in y=mx+b form.
+
+\vspace{12pt}
+
+5. Find the length and the midpoint of the line segment joining the point (20,-10) to the origin. 
+
+\vspace{12pt}
+
+6. Determine the type of conic and sketch it. 
+\begin{equation} 6x+y^2-8y = 0  \end{equation}
+
+\vspace{12pt}
+
+7. Find all the solutions of $2sin(t) - 1 - {sin}^2(t) = 0$ in the interval $[0, 2 \pi]$. 
+
+\vspace{12pt}
+
+8. Find the angle within the interval $[0, \pi]$ such that $cos \theta = cos \frac{38 \pi}{5}$.
+
+\vspace{12pt}
+
+9. If $y = \frac{3x+2}{1-4x}$, then what is x in terms of y?
+
+\vspace{12pt}
+
+10. What can you say about $\frac{ \mid x \mid + \mid 4-x \mid  }{ x-2 }$ when x is large and positive. 
+
+\vspace{12pt}
+
+11. Divide $x^2 + 3x - 5$ by $x+2$ to obtain the quotient and the remainder.  In other words, find the polynomial Q(x) and the constant R such that 
+\begin{equation}
+\frac{x^2 + 3x - 5}{x+2} = Q(x) + \frac{R}{x+2}
+\end{equation}
+
+12. A fly and spider are in an oblong room that is thirty feet long, twelve feet wide, and twelve feet high.  The spider is perched on an end wall one foot from the ceiling and six feet from each side wall.  They wish to proceed to a point on the other end one foot from the floor and six feet from each side wall where the fly is trapped.  If he take the shortest path, how far must they WALK to get to the destination. 
+
+

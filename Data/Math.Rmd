@@ -1,0 +1,32 @@
+---
+title: "Writing Mathematical Expressions in RMarkdown"
+author: "John Vinson"
+date: "8/29/2017"
+output: pdf_document
+---
+
+We can write equations like this
+
+
+\begin{equation}
+y = mx+b
+\end{equation}
+
+\begin{equation}
+z = yx +c +d
+\end{equation}
+
+We can align our equations with 
+\begin{align}
+y = mx &+b\\
+z &= yx +c
+\end{align}
+
+In line we can write equations like this $N_t = N_0 e^{rt}$. 
+
+Special characters 
+\begin{equation}
+\tau \lambda \Psi \psi
+\end{equation}
+
+

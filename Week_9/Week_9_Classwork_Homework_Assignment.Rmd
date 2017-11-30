@@ -1,0 +1,62 @@
+---
+title: "Week 9 Classwork/Homework Assignment"
+author: "John Vinson"
+date: "10/7/2017"
+output: pdf_document
+---
+
+*For the assignment, you only need to turn in a completed pdf. You may need to attach a hand written document showing your work for these problems.  Make sure that the compiled documents will display all the required code to get your results.*
+
+\begin{center}
+{\bf The assignment is due Tuesday October 17 at 3:30 PM.}
+\end{center}
+
+\vspace{12pt}
+
+1. Suppose that when a sense organ receives a stimulus at time t, the total number of action potentials is $P(t)$. If the rate at which action potentials are produced is $t^3 + 4t^2 + 6$, and if there are 0 potentials when t=0, find the formula for $P(t)$.
+
+\vspace{12pt}
+
+2. A factory is dumping pollutants into a river at a rate given by $\frac{dx}{dt} = \frac{t^{\frac{3}{4}}}{600}$, where t is time in weeks since the dumping began and x is the number of tons of pollutants.
+
+- Find the equation for total tons of pollutants dumped.
+- How many tons were dumped during the first year?
+
+\vspace{12pt}
+
+3. The rate of growth of the world population can be modeled by 
+
+\begin{equation}
+\frac{dn}{dt} = N_0 (1+r)^t ln(1+r)
+\end{equation}
+
+with $r<1$ and t is the time and years from the present and $N_0$ and r are constants. What function describes world population if the present population is $N_0$. (Hint: We can show that $\int(a^u ln a)u^{'} dx = a^u+C$.) 
+
+\vspace{12pt}
+
+4. Suppose that the growth of a certain species of bacteria is described by 
+
+\begin{equation}
+\frac{dy}{dt} = ky
+\end{equation}
+
+where y is the number of individuals and t is the number of hours. 
+\begin{itemize}
+\item If initially there are 10,000 organisms and the number triples after 2 hours, how long will it be before there is 100 times the original population?
+\item If the doubling rate depends on temperature, find how long it takes for the number of bacteria to reach 50 times the original number at each given temperature in:
+
+\begin{itemize}
+\item at 90 $^{\circ} F$, the number doubles after 30 minutes.
+\item at 40 $^{\circ} F$, the number doubles after 3 hours.
+\end{itemize}
+\end{itemize}
+
+\vspace{12pt}
+
+5. If x and y are measurements of certain parts of an organism, then the rate of change of y with respect to x is proportional to the ratio of y to x.  We can describe this relationship as
+
+\begin{equation}
+\frac{dy}{dx} = k \frac{y}{x}
+\end{equation}
+
+which is referred to as an allometric law of growth. Solve this differential equation. 

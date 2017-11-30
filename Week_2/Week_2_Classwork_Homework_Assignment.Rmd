@@ -1,11 +1,15 @@
 ---
 title: "Week 2 Classwork/Homework Assignment"
 author: "John Vinson"
-date: "7/13/2017"
+date: "August 21, 2017"
 output: pdf_document
 ---
 
 *For the assignment, you will submit a R Markdown (.rmd) file and the compiled document as both a pdf and html. Make sure that the compiled documents will display all the required code to get your results.*
+
+\begin{center}
+{\bf The assignment is due Friday August 25 at 8:00 PM.}
+\end{center}
 
 \vspace{24pt}
 
@@ -14,7 +18,7 @@ output: pdf_document
 - Print the line "Here are my answers for Question 1." 
 - Compute the product of six and five.
 - Compute eight to the fifth power.
-- Compute the product of two variables
+- Compute the product of two variables, A and B, where A is nine and B is eighty.
 
 \vspace{12pt}
 
@@ -23,7 +27,7 @@ output: pdf_document
 \{13.0,1.0,5.0,8.0,1.0,0.0,34.0,2.0,21.0,0.0,3.0\}
 \end{equation}
 
-- Using the set, create a vector named *Ornacia*.
+- Create a vector named *Ornacia* using the set.
 - Determine the length of the vector.
 - Find the highest values and the positions of the value(s).
 - Find the lowest value(s). Display the lowest values(s).
@@ -38,7 +42,7 @@ output: pdf_document
 3. Import the dataset "eBird_BotGarden_2016.csv". These are estimated abundances of birds seen at the State Botanical Gardens of Georgia (Athens, GA) each week of 2016.  Perform the following operations:
 
 - Plot the weekly abundance of the Northern Flicker as a bar graph. 
-- Plot the weekly abundance of the Barred Owl, Canada Goose and Red Shouldered Hawk on a single line graph. 
+- Plot the weekly abundance of the Barred Owl, Canada Goose and Red Shouldered Hawk on a single line graph each with a different color. 
 
 \vspace{12pt}
 
@@ -46,4 +50,4 @@ output: pdf_document
 
 \vspace{12pt}
 
-5. Using your averaging function, write script to create a new dataframe containing the names and average abundance of every species that has an average abudnace greater than 5 individuals. Your resulting data frame should have two columns: the name of the species and their average abundance. 
+5. Using your averaging function, write script to create a new dataframe containing the names and average abundance of every species that has an average abundance greater than 5 individuals. Your resulting data frame should have two columns: the name of the species and their average abundance. 

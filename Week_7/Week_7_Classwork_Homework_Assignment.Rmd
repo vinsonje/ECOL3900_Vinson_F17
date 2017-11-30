@@ -1,0 +1,89 @@
+---
+title: "Week 7 Classwork/Homework Assignment"
+author: "John Vinson"
+date: "9/7/2017"
+output: pdf_document
+---
+
+*For the assignment, you only need to turn in a completed pdf. You may need to attach a hand written document showing your work for these problems.  Make sure that the compiled documents will display all the required code to get your results.*
+
+\begin{center}
+{\bf The assignment is due Tuesday October 3 at 3:30 PM.}
+\end{center}
+
+\vspace{24pt}
+
+1. Experimental evidence suggests that that the response y of the body to the concentration x of injected adrenalin is given by
+
+\begin{equation}
+y = \frac{x}{a+bx}
+\end{equation}
+
+where a and b are constants determined from experimental data. 
+
+- Is the function continuous $\forall x \in I\!R$?
+- Biologically, what can we constrain x and y to be?
+- Assuming this, must a and b both be positive, negative, or have opposite signs?
+
+\vspace{12pt}
+
+2. The higest recorded temperature in the state of Alaska was 100$^{\circ}F$ and occured in June 27, 1915, at Fort Yukon. The heat index is the apparent temperature of the air at a given temperature and humidity level. If x denotes the relative humidity (in percent), then the heat index (in $^{\circ}F$) for the air temperature of 100$^{\circ}F$ can be approximated using the function
+
+\begin{equation}
+f(x) = 0.009x^2 + 0.139x + 91.875
+\end{equation}
+
+- At what rate is the heat index changing when the humidity is 50%?
+- Interpret this biologically.
+
+\vspace{12pt}
+
+3. For fiddler crabs, data gathered by Thompson show that the relationship between the weight C of the claw and the weight of the body W is given by
+
+\begin{equation}
+C = 0.11W^{1.54}
+\end{equation}
+where W and C are in grams.  
+
+- Find the function that gives the rate of change of claw weight with respect to body weight.
+
+- Plot the relationship for crabs with a body weight from $[0,100]$. 
+
+\vspace{12pt}
+
+4. It is determined that a wildlife refuge can support a group of up to 120 of a certain endangered species. If 75 are introduced onto the refuge and their population after t years is given by
+
+\begin{equation}
+p(t) = 75(1+ \frac{4t}{t^2+16} )
+\end{equation}
+
+find the rate of population growth after t years. Find the rate after each of the first 7 years. 
+
+\vspace{12pt}
+
+5. We can describe a population of microorganism at time t (in minutes) as
+
+\begin{equation}
+P = 1000 - 1000(t+10)^{-1}
+\end{equation}
+
+Find the rate of change of the population. 
+
+\vspace{12pt}
+
+6. The amount of photosynthesis that takes place in a plant depends on the intensity of light x according to the equation
+
+\begin{equation}
+P(x) = 154 x^2 - 30 x^3
+\end{equation}
+
+- Find the rate of change of photosynthesis with respect to intensity.
+ 
+- What is the rate of change x=1? when x=3?
+
+- How fast is the rate found above changing when x=1? when x=3?
+
+- Interpret $P^{'}(1)$ and $P^{''}(1)$.
+
+
+
